@@ -2,7 +2,8 @@ import Loader from "react-loader-spinner"
 
 const Spinner = ({ message }) => {
   return (
-    <div className='flex flex-col justify-center  items-center   w-full h-full'>
+    <div className='flex flex-col justify-center  items-center w-full h-full'>
+      {/* Spinner Config */}
       <Loader
         type='Circles'
         color='#000'
@@ -10,6 +11,7 @@ const Spinner = ({ message }) => {
         width={200}
         className='m-5'
       />
+      {/* Loading message */}
       <p className='text-lg text-center px-2'>{message}</p>
     </div>
   )
