@@ -4,11 +4,24 @@ import { FcGoogle } from "react-icons/fc"
 
 import backgroundVideo from "../assets/bg.mp4"
 import logo from "../assets/logo-light.svg"
+import { client } from "../client"
 
 const Login = () => {
+  const navigate = useNavigate()
+
   const loginResponse = response => {
     localStorage.setItem("user", JSON.stringify(response.profileObj))
     const { googleId, name, imageUrl } = response.profileObj
+
+    // user data that will be sent to sanity
+    const doc = {
+      _id: googleId,
+      _type: "user",
+      username: name,
+      image: imageUrl,
+    }
+
+    client.createIfNotExists(doc).then(() => navigate("/", { replace: true }))
   }
 
   return (
