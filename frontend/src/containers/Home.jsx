@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { HiMenu } from "react-icons/hi"
 import { AiFillCloseCircle } from "react-icons/ai"
 import { Link } from "react-router-dom"
+import { Routes } from "react-router-dom"
+import { Route } from "react-router-dom"
 
-import { Sidebar } from "../components"
+import { Sidebar, UserProfile } from "../components"
+import { Pins } from "../containers"
 import logo from "../assets/logo-dark.svg"
 import { userQuery } from "../utils/data"
 import { client } from "../client"
@@ -13,6 +16,8 @@ const Home = () => {
   const [toggleSideBar, setToggleSideBar] = useState(false)
   // state for setting up user fetched from sanity
   const [user, setUser] = useState(null)
+  // state for implememting infinite scrolling
+  const scrollRef = useRef()
 
   // fetching user details from localstorage
   const userInfo =
@@ -24,6 +29,11 @@ const Home = () => {
   useEffect(() => {
     const query = userQuery(userInfo?.googleId)
     client.fetch(query).then(data => setUser(data[0]))
+  }, [])
+
+  // set up scroll to top of page
+  useEffect(() => {
+    scrollRef.current.scrollTo(0, 0)
   }, [])
 
   return (
@@ -58,7 +68,7 @@ const Home = () => {
         {/* mobile menu toggle */}
         {toggleSideBar && (
           <div
-            className='fixed w-[66%] bg-white h-screen overflow-y-auto shadow-md z-10
+            className='fixed w-[48%] bg-white h-screen overflow-y-auto shadow-md z-10
         animate-slide-in'
           >
             <div className='absolute w-full flex justify-end items-center p-2'>
@@ -72,6 +82,14 @@ const Home = () => {
             <Sidebar user={user && user} closeToggle={setToggleSideBar} />
           </div>
         )}
+      </div>
+
+      {/* Setting up routes */}
+      <div className='pb-2 flex-1 h-screen overflow-y-scroll' ref={scrollRef}>
+        <Routes>
+          <Route path='/user-profile/:userId' element={<UserProfile />} />
+          <Route path='/*' element={<Pins user={user && user} />} />
+        </Routes>
       </div>
     </div>
   )
