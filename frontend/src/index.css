@@ -3,6 +3,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .btn {
+    @apply flex justify-center items-center font-bold rounded-full opacity-75 hover:opacity-100 hover:shadow-md text-base outline-none;
+  }
+}
+
 body {
   margin: 0;
   font-family: "Lato", sans-serif;

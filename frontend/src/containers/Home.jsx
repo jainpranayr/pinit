@@ -10,6 +10,7 @@ import { Pins } from "../containers"
 import logo from "../assets/logo-dark.svg"
 import { userQuery } from "../utils/data"
 import { client } from "../client"
+import fetchUserFromLocalStorage from "../utils/fetchUserFromLocalStorage"
 
 const Home = () => {
   // state to toggle mobile menu
@@ -19,11 +20,7 @@ const Home = () => {
   // state for implememting infinite scrolling
   const scrollRef = useRef()
 
-  // fetching user details from localstorage
-  const userInfo =
-    localStorage.getItem("user") !== "undefined"
-      ? JSON.parse(localStorage.getItem("user"))
-      : localStorage.clear()
+  const userInfo = fetchUserFromLocalStorage()
 
   // fetching user details from sanity
   useEffect(() => {
