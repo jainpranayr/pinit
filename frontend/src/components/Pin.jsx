@@ -17,9 +17,10 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
 
   // user details
   const user = fetchUserFromLocalStorage()
+
   // check if user has saved the pin
   const alreadySaved = !!save?.filter(
-    item => item.postedBy._id === user.googleId
+    item => item.postedBy._id === user?.googleId
   )?.length
 
   // save pin logic
@@ -99,16 +100,19 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
                   {save?.length} Saved
                 </button>
               ) : (
-                <button
-                  type='button'
-                  className='btn bg-red-500 text-white px-5 py-1'
-                  onClick={e => {
-                    e.stopPropagation()
-                    savePin(_id)
-                  }}
-                >
-                  Save
-                </button>
+                // only render save button if the pin is not posted by current user
+                postedBy?._id !== user?.googleId && (
+                  <button
+                    type='button'
+                    className='btn bg-red-500 text-white px-5 py-1'
+                    onClick={e => {
+                      e.stopPropagation()
+                      savePin(_id)
+                    }}
+                  >
+                    Save
+                  </button>
+                )
               )}
             </div>
 
@@ -131,7 +135,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
               )}
 
               {/* render delete button */}
-              {postedBy?._id === user.googleId && (
+              {postedBy?._id === user?.googleId && (
                 <button
                   type='button'
                   className='btn bg-white text-dark p-2'
@@ -149,7 +153,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
       </div>
       {/* render user profile and link to user profile page */}
       <Link
-        to={`user-profile/${user?._id}`}
+        to={`user-profile/${postedBy?._id}`}
         className='flex gap-2 mt-2 items-center'
       >
         <img
