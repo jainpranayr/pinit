@@ -31,7 +31,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
         .patch(id)
         // add new array
         .setIfMissing({ save: [] })
-        // insert document
+        // push pin to array
         .insert("after", "save[-1]", [
           {
             _key: v4(),
@@ -127,10 +127,10 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
                   onClick={e => e.stopPropagation()}
                 >
                   <BsFillArrowUpRightCircleFill />
-                  {destination.length > 20
+                  {/* {destination.length > 20
                     ? // truncate url if length greater than 20
                       destination.slice(8, 20) + "..."
-                    : destination.slice(8)}
+                    : destination.slice(8)} */}
                 </a>
               )}
 
