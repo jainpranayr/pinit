@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { AiOutlineMeh } from "react-icons/ai"
 
-import { Spinner } from "../components"
+import { Spinner, NoPinsFound } from "../components"
 import { client } from "../client"
 import { feedQuery, searchQuery } from "../utils/data"
 import MasonryLayout from "./MasonryLayout"
@@ -38,13 +37,7 @@ const Feed = () => {
   // loading message
   if (loading) return <Spinner message='Hang on! fetching new Pins.' />
   // if there are no pins available
-  if (!pins?.length)
-    return (
-      <div className='flex flex-col justify-center items-center w-full h-full mt-9'>
-        <AiOutlineMeh fontSize={40} />
-        <p className="text-lg text-center px-2'">No pins to display!</p>
-      </div>
-    )
+  if (!pins?.length) return <NoPinsFound />
 
   return (
     <div>
