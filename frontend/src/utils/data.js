@@ -183,3 +183,55 @@ export const pinDetailMorePinQuery = pin => {
   }`
   return query
 }
+
+// fetxh user created pins
+export const userCreatedPinsQuery = userId => {
+  const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      username,
+      image
+    },
+    save[]{
+      postedBy->{
+        _id,
+        username,
+        image
+      },
+    },
+  }`
+  return query
+}
+
+// fetch user saved pins
+export const userSavedPinsQuery = userId => {
+  const query = `*[_type == 'pin' && '${userId}' in save[].userId ] | order(_createdAt desc) {
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      username,
+      image
+    },
+    save[]{
+      postedBy->{
+        _id,
+        username,
+        image
+      },
+    },
+  }`
+  return query
+}
