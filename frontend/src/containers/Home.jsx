@@ -26,7 +26,7 @@ const Home = () => {
   useEffect(() => {
     const query = userQuery(userInfo?.googleId)
     client.fetch(query).then(data => setUser(data[0]))
-  }, [])
+  }, [userInfo?.googleId])
 
   // set up scroll to top of page
   useEffect(() => {
