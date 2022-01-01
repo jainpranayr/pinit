@@ -11,25 +11,6 @@ const isNotActiveStyle =
 const isActiveStyle =
   "flex items-center px-5 gap-3 font-extrabold border-r-2 border-black  transition-all duration-200 ease-in-out capitalize"
 
-// dummy categories array
-// const categories = [
-//   {
-//     name: "Animals",
-//   },
-//   {
-//     name: "Wallpapers",
-//   },
-//   {
-//     name: "Photography",
-//   },
-//   {
-//     name: "Gaming",
-//   },
-//   {
-//     name: "Coding",
-//   },
-// ]
-
 const Sidebar = ({ user, closeToggle }) => {
   // toggle setToggle state when clicked
   const handleCloseSidebar = () => {

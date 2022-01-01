@@ -121,7 +121,7 @@ const PinDetails = ({ user }) => {
 
           {/*  user profile and link to user profile page */}
           <Link
-            to={`user-profile/${pinDetails?.postedBy?._id}`}
+            to={`/user-profile/${pinDetails?.postedBy?._id}`}
             className='flex gap-2 mt-5 items-center bg-white rounded-lg'
           >
             <img
@@ -143,11 +143,14 @@ const PinDetails = ({ user }) => {
                 key={idx}
               >
                 {/* user dp */}
-                <img
-                  src={comment?.postedBy?.image}
-                  alt={comment?.postedBy?.username}
-                  className='w-10 h-1- rounded-full cursor-pointer'
-                />
+                <Link to={`/user-profile/${pinDetails?.postedBy?._id}`}>
+                  <img
+                    src={comment?.postedBy?.image}
+                    alt={comment?.postedBy?.username}
+                    className='w-10 h-1- rounded-full cursor-pointer'
+                  />
+                </Link>
+
                 {/* user name and comment */}
                 <div className='flex flex-col'>
                   <p className='font-base'>{comment?.postedBy?.username}</p>
@@ -160,7 +163,7 @@ const PinDetails = ({ user }) => {
           {/* adding comments */}
           <div className='flex flex-wrap mt-6 gap-3 items-center'>
             {/* dp of user adding comment and profile link */}
-            <Link to={`user-profile/${pinDetails?.postedBy?._id}`}>
+            <Link to={`/user-profile/${pinDetails?.postedBy?._id}`}>
               <img
                 className='w-8 h-8 rounded-full cursor-pointer'
                 src={pinDetails?.postedBy?.image}

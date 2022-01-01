@@ -2,12 +2,11 @@ import { MdDownloadForOffline } from "react-icons/md"
 import { AiTwotoneDelete } from "react-icons/ai"
 import { BsFillArrowUpRightCircleFill } from "react-icons/bs"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
+import { v4 } from "uuid"
 
 import { client, urlFor } from "../client"
 import fetchUserFromLocalStorage from "../utils/fetchUserFromLocalStorage"
-import { v4 } from "uuid"
-import { Link } from "react-router-dom"
 
 const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
   // mouse hover state
@@ -153,7 +152,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
       </div>
       {/* render user profile and link to user profile page */}
       <Link
-        to={`user-profile/${postedBy?._id}`}
+        to={`/user-profile/${postedBy?._id}`}
         className='flex gap-2 mt-2 items-center'
       >
         <img

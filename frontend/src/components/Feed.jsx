@@ -17,10 +17,10 @@ const Feed = () => {
 
   // fetching pins
   useEffect(() => {
-    setLoading(true)
     // fetch pins based on search term
     if (categoryId) {
-      const query = searchQuery()
+      setLoading(true)
+      const query = searchQuery(categoryId)
 
       client.fetch(query).then(data => {
         setPins(data)
@@ -33,7 +33,7 @@ const Feed = () => {
         setLoading(false)
       })
     }
-  }, [])
+  }, [categoryId])
 
   // loading message
   if (loading) return <Spinner message='Hang on! fetching new Pins.' />
