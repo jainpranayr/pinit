@@ -5,12 +5,6 @@ import { RiHomeFill } from "react-icons/ri"
 import logo from "../assets/logo-dark.svg"
 import { categories } from "../utils/data" // actual cayegories array
 
-// styles for active and non-active links
-const isNotActiveStyle =
-  "flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize"
-const isActiveStyle =
-  "flex items-center px-5 gap-3 font-extrabold border-r-2 border-black  transition-all duration-200 ease-in-out capitalize"
-
 const Sidebar = ({ user, closeToggle }) => {
   // toggle setToggle state when clicked
   const handleCloseSidebar = () => {
@@ -34,7 +28,7 @@ const Sidebar = ({ user, closeToggle }) => {
           <NavLink
             to='/'
             className={({ isActive }) =>
-              isActive ? isActiveStyle : isNotActiveStyle
+              isActive ? "isActiveStyle" : "isNotActiveStyle"
             }
             onClick={handleCloseSidebar}
           >
@@ -50,7 +44,7 @@ const Sidebar = ({ user, closeToggle }) => {
             <NavLink
               to={`/category/${category.name}`}
               className={({ isActive }) =>
-                isActive ? isActiveStyle : isNotActiveStyle
+                isActive ? "isActiveStyle" : "isNotActiveStyle"
               }
               onClick={handleCloseSidebar}
               key={category.name}
