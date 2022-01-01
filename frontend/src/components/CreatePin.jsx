@@ -184,8 +184,7 @@ const CreatePin = ({ user }) => {
 
           {/* destination orl */}
           <input
-            type='url'
-            pattern='https://.*'
+            type='text'
             value={destination}
             onChange={e => setDestination(e.target.value)}
             placeholder='Add link related to pin'

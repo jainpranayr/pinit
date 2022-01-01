@@ -119,7 +119,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
             <div className='flex justify-between items-center gap-2 w-full'>
               {destination && (
                 <a
-                  href={destination}
+                  href={`http://${destination}`}
                   target='_blank'
                   rel='noreferrer'
                   className=' btn bg-white gap-2 text-black p-2 pl-4'

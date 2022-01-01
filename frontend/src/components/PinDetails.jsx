@@ -51,8 +51,9 @@ const PinDetails = ({ user }) => {
   }
 
   // fetching pin details from sanity
-  const fetchPinDetails = () => {
+  const fetchPinDetails = pinId => {
     let query = pinDetailQuery(pinId)
+    console.log(`fetching pin ${pinId}`)
 
     // fetched the pin from sanity
     if (query) {
@@ -70,13 +71,11 @@ const PinDetails = ({ user }) => {
 
   // fetch pin details on change of pin id
   useEffect(() => {
-    fetchPinDetails()
+    fetchPinDetails(pinId)
   }, [pinId])
 
   // display loader if pins not fetched
   if (!pinDetails) return <Spinner message='Loading pin' />
-
-  console.log(pin)
 
   return (
     <>
