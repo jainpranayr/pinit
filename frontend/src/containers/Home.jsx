@@ -31,7 +31,7 @@ const Home = () => {
   // set up scroll to top of page
   useEffect(() => {
     scrollRef.current.scrollTo(0, 0)
-  }, [])
+  }, [scrollRef])
 
   return (
     <div className='flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out'>
