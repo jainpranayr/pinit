@@ -37,19 +37,19 @@ const Feed = () => {
 
   // loading message
   if (loading) return <Spinner message='Hang on! fetching new Pins.' />
+  // if there are no pins available
+  if (!pins?.length)
+    return (
+      <div className='flex flex-col justify-center items-center w-full h-full mt-9'>
+        <AiOutlineMeh fontSize={40} />
+        <p className="text-lg text-center px-2'">No pins to display!</p>
+      </div>
+    )
 
   return (
     <div>
       {/* display pins */}
-      {pins?.length >= 1 ? (
-        <MasonryLayout pins={pins} />
-      ) : (
-        // if no pins fetched
-        <div className='flex flex-col justify-center items-center w-full h-full'>
-          <AiOutlineMeh fontSize={40} />
-          <p className="text-lg text-center px-2'">No pins to display!</p>
-        </div>
-      )}
+      {pins?.length >= 1 && <MasonryLayout pins={pins} />}
     </div>
   )
 }
