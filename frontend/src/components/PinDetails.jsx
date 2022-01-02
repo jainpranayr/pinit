@@ -43,7 +43,7 @@ const PinDetails = ({ user }) => {
         .commit()
         // reset comment and addingComment state
         .then(() => {
-          fetchPinDetails()
+          fetchPinDetails(pinId)
           setComment("")
           setAddingComment(false)
         })
@@ -162,11 +162,11 @@ const PinDetails = ({ user }) => {
           {/* adding comments */}
           <div className='flex flex-wrap mt-6 gap-3 items-center'>
             {/* dp of user adding comment and profile link */}
-            <Link to={`/user-profile/${pinDetails?.postedBy?._id}`}>
+            <Link to={`/user-profile/${user?._id}`}>
               <img
                 className='w-8 h-8 rounded-full cursor-pointer'
-                src={pinDetails?.postedBy?.image}
-                alt={pinDetails?.postedBy?.username || "user profile"}
+                src={user?.image}
+                alt={user?.username || "user profile"}
               />
             </Link>
             {/* comment input */}
