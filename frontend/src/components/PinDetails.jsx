@@ -88,7 +88,7 @@ const PinDetails = ({ user }) => {
             className='rounded-t-3xl rounded-b-lg max-h-[50vh]'
           />
         </div>
-        <div className='w-full p-5 flex-1 cl:min-w-620'>
+        <div className='w-full p-5 flex-1 xl:min-w-[620]'>
           <div className='flex items-center justify-between'>
             <div className='flex gap-2 items-center'>
               {/* download button */}
@@ -135,7 +135,7 @@ const PinDetails = ({ user }) => {
 
           {/*display  comments */}
           <h2 className='mt-5 text-2xl'>Comments</h2>
-          <div className='max-h-370 overflow-y-auto'>
+          <div className='max-h-[370] overflow-y-auto'>
             {pinDetails?.comments?.map((comment, idx) => (
               <div
                 className='flex gap-2 mt-5 items-center bg-white rounded-lg'

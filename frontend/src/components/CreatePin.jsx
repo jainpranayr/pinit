@@ -103,7 +103,7 @@ const CreatePin = ({ user }) => {
       )}
       <div className='flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5 w-full'>
         <div className='bg-secondaryColor p-3 flex flex-0.7 w-full'>
-          <div className='flex justify-center items-center flex-col border-dotted border-2 border-gray-300 p-3 w-full h-420'>
+          <div className='flex justify-center items-center flex-col border-dotted border-2 border-gray-300 p-3 w-full h-[420]'>
             {/* if loading show spinner */}
             {loading && <Spinner />}
 
