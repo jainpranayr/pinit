@@ -8,6 +8,7 @@ import { client, urlFor } from "../client"
 import { Spinner } from "../components"
 import { pinDetailMorePinQuery, pinDetailQuery } from "../utils/data"
 import MasonryLayout from "./MasonryLayout"
+import NoPinsFound from "./NoPinsFound"
 
 const PinDetails = ({ user }) => {
   // pin state
@@ -53,7 +54,6 @@ const PinDetails = ({ user }) => {
   // fetching pin details from sanity
   const fetchPinDetails = pinId => {
     let query = pinDetailQuery(pinId)
-    console.log(`fetching pin ${pinId}`)
 
     // fetched the pin from sanity
     if (query) {
@@ -105,8 +105,9 @@ const PinDetails = ({ user }) => {
 
             {/* destination url */}
             <a href={pinDetails?.destination} target='_blank' rel='noreferrer'>
-              {" "}
-              {pinDetails?.destination}
+              {pinDetails?.destination.length > 30
+                ? pinDetails?.destination.substring(0, 30)
+                : pinDetails?.destination}
             </a>
           </div>
 
@@ -198,7 +199,7 @@ const PinDetails = ({ user }) => {
           <MasonryLayout pins={pin} />
         </>
       ) : (
-        <Spinner message='Loadng related pins' />
+        <NoPinsFound />
       )}
     </>
   )

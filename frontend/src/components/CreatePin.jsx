@@ -13,7 +13,7 @@ const CreatePin = ({ user }) => {
   // about the pin
   const [about, setAbout] = useState("")
   // destination url of pin
-  const [destination, setDestination] = useState("https://www.")
+  const [destination, setDestination] = useState("")
   // page loading state
   const [loading, setLoading] = useState(false)
   // all the fields of form
@@ -186,7 +186,13 @@ const CreatePin = ({ user }) => {
           <input
             type='text'
             value={destination}
-            onChange={e => setDestination(destination + e.target.value)}
+            onChange={e =>
+              setDestination(
+                e.target.value.startsWith("https://www.")
+                  ? e.target.value
+                  : "https://www." + e.target.value
+              )
+            }
             placeholder='Add link related to pin'
             className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2'
           />
