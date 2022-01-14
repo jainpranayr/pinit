@@ -119,9 +119,9 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
             <div className='flex justify-between items-center gap-2 w-full'>
               {destination && (
                 <a
-                  href={`https://${destination}`}
+                  href={`${destination}`}
                   target='_blank'
-                  rel='noreferrer'
+                  rel='noopener noreferrer'
                   className=' btn bg-white gap-2 text-black p-2 pl-4'
                   onClick={e => e.stopPropagation()}
                 >

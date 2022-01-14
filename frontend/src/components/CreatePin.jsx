@@ -13,7 +13,7 @@ const CreatePin = ({ user }) => {
   // about the pin
   const [about, setAbout] = useState("")
   // destination url of pin
-  const [destination, setDestination] = useState("")
+  const [destination, setDestination] = useState("https://www.")
   // page loading state
   const [loading, setLoading] = useState(false)
   // all the fields of form
@@ -30,7 +30,7 @@ const CreatePin = ({ user }) => {
   // uploading image to sanity database
   const uploadImage = e => {
     const { type, name } = e.target.files[0]
-    // chaeck for wrong file types
+    // check for wrong file types
     if (
       type === "image/png" ||
       type === "image/svg" ||
@@ -186,7 +186,7 @@ const CreatePin = ({ user }) => {
           <input
             type='text'
             value={destination}
-            onChange={e => setDestination(e.target.value)}
+            onChange={e => setDestination(destination + e.target.value)}
             placeholder='Add link related to pin'
             className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2'
           />
@@ -196,7 +196,7 @@ const CreatePin = ({ user }) => {
             <div>
               <select
                 onChange={e => setCategory(e.target.value)}
-                className='outline-none w-full lg:w-5/12 text-baseborder-gray-200 p-2 rounded-md cursor-pointer'
+                className='outline-none w-full lg:w-5/12 text-base border-gray-200 p-2 rounded-md cursor-pointer'
               >
                 <option value='other' className='bg-white'>
                   Select Category
