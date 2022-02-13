@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
 import { MdDownloadForOffline } from "react-icons/md"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { v4 } from "uuid"
 import { client, urlFor } from "../client"
+import { BsFillArrowUpRightCircleFill } from "react-icons/bs"
+import { AiTwotoneDelete } from "react-icons/ai"
 
 import { Spinner } from "../components"
 import { pinDetailMorePinQuery, pinDetailQuery } from "../utils/data"
@@ -21,6 +23,7 @@ const PinDetails = ({ user }) => {
   const [addingComment, setAddingComment] = useState(false)
   // getting pin id from url
   const { pinId } = useParams()
+  const navigate = useNavigate()
 
   // adding comment to pin
   const addComment = () => {
@@ -77,6 +80,10 @@ const PinDetails = ({ user }) => {
   // display loader if pins not fetched
   if (!pinDetails) return <Spinner message='Loading pin' />
 
+  const deletePin = id => {
+    client.delete(id).then(() => navigate("/"))
+  }
+
   return (
     <>
       <div className='flex xl:flex-row flex-col m-auto bg-white max-w[1500px] rounded-[32px]'>
@@ -89,26 +96,42 @@ const PinDetails = ({ user }) => {
           />
         </div>
         <div className='w-full p-5 flex-1 cl:min-w-620'>
-          <div className='flex items-center justify-between'>
-            <div className='flex gap-2 items-center'>
-              {/* download button */}
-              <a
-                href={`${pinDetails?.image?.asset?.url}?dl=`}
-                download
-                // to stop page from redirecting to pin details page when clicked on download button
-                onClick={e => e.stopPropagation()}
-                className='btn bg-white w-9 h-9'
-              >
-                <MdDownloadForOffline />
-              </a>
-            </div>
+          <div className='flex items-center'>
+            {/* download button */}
+            <a
+              href={`${pinDetails?.image?.asset?.url}?dl=`}
+              download
+              // to stop page from redirecting to pin details page when clicked on download button
+              onClick={e => e.stopPropagation()}
+              className='btn bg-white w-9 h-9'
+            >
+              <MdDownloadForOffline className='w-6 h-6' />
+            </a>
 
             {/* destination url */}
-            <a href={pinDetails?.destination} target='_blank' rel='noreferrer'>
-              {pinDetails?.destination.length > 30
-                ? pinDetails?.destination.substring(0, 30)
-                : pinDetails?.destination}
+            <a
+              href={pinDetails?.destination}
+              target='_blank'
+              rel='noopener noreferrer'
+              onClick={e => e.stopPropagation()}
+              className='btn bg-white w-9 h-9'
+            >
+              <BsFillArrowUpRightCircleFill className='w-5 h-5' />
             </a>
+
+            {/* Delete Button */}
+            {pinDetails?.postedBy?._id === user?._id && (
+              <button
+                type='button'
+                className='btn bg-white text-dark p-2'
+                onClick={e => {
+                  e.stopPropagation()
+                  deletePin(pinId)
+                }}
+              >
+                <AiTwotoneDelete className='h-6 w-6' />
+              </button>
+            )}
           </div>
 
           {/* Pin title and about */}

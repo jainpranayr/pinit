@@ -118,7 +118,7 @@ const CreatePin = ({ user }) => {
                     <p className='font-bold text-2xl'>
                       <AiOutlineCloudUpload />
                     </p>
-                    <p className='text-lg'>Click to upload</p>
+                    <p className='text-lg cursor-pointer'>Click to upload</p>
                   </div>
                 </div>
                 <input
