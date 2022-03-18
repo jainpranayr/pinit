@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react"
-import { MdDownloadForOffline } from "react-icons/md"
-import { Link, useNavigate } from "react-router-dom"
-import { useParams } from "react-router-dom"
-import { v4 } from "uuid"
-import { client, urlFor } from "../client"
-import { BsFillArrowUpRightCircleFill } from "react-icons/bs"
-import { AiTwotoneDelete } from "react-icons/ai"
+import { useEffect, useState } from 'react'
+import { MdDownloadForOffline } from 'react-icons/md'
+import { Link, useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { v4 } from 'uuid'
+import { client, urlFor } from '../client'
+import { BsFillArrowUpRightCircleFill } from 'react-icons/bs'
+import { AiTwotoneDelete } from 'react-icons/ai'
 
-import { Spinner } from "../components"
-import { pinDetailMorePinQuery, pinDetailQuery } from "../utils/data"
-import MasonryLayout from "./MasonryLayout"
-import NoPinsFound from "./NoPinsFound"
+import { Spinner } from '../components'
+import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data'
+import MasonryLayout from './MasonryLayout'
+import NoPinsFound from './NoPinsFound'
 
 const PinDetails = ({ user }) => {
   // pin state
@@ -18,7 +18,7 @@ const PinDetails = ({ user }) => {
   // pin details state
   const [pinDetails, setPinDetails] = useState(null)
   // comment state
-  const [comment, setComment] = useState("")
+  const [comment, setComment] = useState('')
   // adding comment state
   const [addingComment, setAddingComment] = useState(false)
   // getting pin id from url
@@ -36,11 +36,11 @@ const PinDetails = ({ user }) => {
         // add comment array if not present
         .setIfMissing({ comments: [] })
         // push comment to array
-        .insert("after", "comments[-1]", [
+        .insert('after', 'comments[-1]', [
           {
             comment,
             _key: v4(),
-            postedBy: { _type: "postedBy", _ref: user._id },
+            postedBy: { _type: 'postedBy', _ref: user._id },
           },
         ])
         // commit to sanity
@@ -48,7 +48,7 @@ const PinDetails = ({ user }) => {
         // reset comment and addingComment state
         .then(() => {
           fetchPinDetails(pinId)
-          setComment("")
+          setComment('')
           setAddingComment(false)
         })
     }
@@ -81,7 +81,7 @@ const PinDetails = ({ user }) => {
   if (!pinDetails) return <Spinner message='Loading pin' />
 
   const deletePin = id => {
-    client.delete(id).then(() => navigate("/"))
+    client.delete(id).then(() => navigate('/'))
   }
 
   return (
@@ -91,7 +91,7 @@ const PinDetails = ({ user }) => {
           {/* pin image */}
           <img
             src={pinDetails?.image && urlFor(pinDetails?.image).url()}
-            alt={pinDetails?.title || "pin image"}
+            alt={pinDetails?.title || 'pin image'}
             className='rounded-t-3xl rounded-b-lg max-h-[50vh]'
           />
         </div>
@@ -103,8 +103,7 @@ const PinDetails = ({ user }) => {
               download
               // to stop page from redirecting to pin details page when clicked on download button
               onClick={e => e.stopPropagation()}
-              className='btn bg-white w-9 h-9'
-            >
+              className='btn bg-white w-9 h-9'>
               <MdDownloadForOffline className='w-6 h-6' />
             </a>
 
@@ -114,8 +113,7 @@ const PinDetails = ({ user }) => {
               target='_blank'
               rel='noopener noreferrer'
               onClick={e => e.stopPropagation()}
-              className='btn bg-white w-9 h-9'
-            >
+              className='btn bg-white w-9 h-9'>
               <BsFillArrowUpRightCircleFill className='w-5 h-5' />
             </a>
 
@@ -127,8 +125,7 @@ const PinDetails = ({ user }) => {
                 onClick={e => {
                   e.stopPropagation()
                   deletePin(pinId)
-                }}
-              >
+                }}>
                 <AiTwotoneDelete className='h-6 w-6' />
               </button>
             )}
@@ -145,12 +142,11 @@ const PinDetails = ({ user }) => {
           {/*  user profile and link to user profile page */}
           <Link
             to={`/user-profile/${pinDetails?.postedBy?._id}`}
-            className='flex gap-2 mt-5 items-center bg-white rounded-lg'
-          >
+            className='flex gap-2 mt-5 items-center bg-white rounded-lg'>
             <img
               className='w-8 h-8 rounded-full object-cover'
               src={pinDetails?.postedBy?.image}
-              alt={pinDetails?.postedBy?.username || "user profile"}
+              alt={pinDetails?.postedBy?.username || 'user profile'}
             />
             <p className='font-semibold capitalize'>
               {pinDetails?.postedBy?.username}
@@ -163,10 +159,9 @@ const PinDetails = ({ user }) => {
             {pinDetails?.comments?.map((comment, idx) => (
               <div
                 className='flex gap-2 mt-5 items-center bg-white rounded-lg'
-                key={idx}
-              >
+                key={idx}>
                 {/* user dp */}
-                <Link to={`/user-profile/${pinDetails?.postedBy?._id}`}>
+                <Link to={`/user-profile/${comment?.postedBy?._id}`}>
                   <img
                     src={comment?.postedBy?.image}
                     alt={comment?.postedBy?.username}
@@ -174,7 +169,7 @@ const PinDetails = ({ user }) => {
                   />
                 </Link>
 
-                {/* user name and comment */}
+                {/* username and comment */}
                 <div className='flex flex-col'>
                   <p className='font-base'>{comment?.postedBy?.username}</p>
                   <p className='font-bold'>{comment?.comment}</p>
@@ -190,7 +185,7 @@ const PinDetails = ({ user }) => {
               <img
                 className='w-8 h-8 rounded-full cursor-pointer'
                 src={user?.image}
-                alt={user?.username || "user profile"}
+                alt={user?.username || 'user profile'}
               />
             </Link>
             {/* comment input */}
@@ -205,9 +200,8 @@ const PinDetails = ({ user }) => {
             <button
               type='submit'
               className='bg-red-500 border-2 border-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none'
-              onClick={addComment}
-            >
-              {addingComment ? "Posting..." : "Done"}
+              onClick={addComment}>
+              {addingComment ? 'Posting...' : 'Done'}
             </button>
           </div>
         </div>
