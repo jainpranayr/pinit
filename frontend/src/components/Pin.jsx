@@ -1,19 +1,21 @@
-import { MdDownloadForOffline } from "react-icons/md"
-import { AiTwotoneDelete } from "react-icons/ai"
-import { BsFillArrowUpRightCircleFill } from "react-icons/bs"
-import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
-import { v4 } from "uuid"
+import { MdDownloadForOffline } from 'react-icons/md'
+import { AiTwotoneDelete } from 'react-icons/ai'
+import { BsFillArrowUpRightCircleFill } from 'react-icons/bs'
+import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { v4 } from 'uuid'
 
-import { client, urlFor } from "../client"
-import fetchUserFromLocalStorage from "../utils/fetchUserFromLocalStorage"
+import { client, urlFor } from '../client'
+import fetchUserFromLocalStorage from '../utils/fetchUserFromLocalStorage'
+import { useDarkMode } from '../context'
 
 const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
   // mouse hover state
   const [postHovered, setPostHovered] = useState(false)
   // navigation
   const navigate = useNavigate()
-
+  // darMode state
+  const { darkMode } = useDarkMode()
   // user details
   const user = fetchUserFromLocalStorage()
 
@@ -31,12 +33,12 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
         // add new array
         .setIfMissing({ save: [] })
         // push pin to array
-        .insert("after", "save[-1]", [
+        .insert('after', 'save[-1]', [
           {
             _key: v4(),
             userId: user?.googleId,
             postedBy: {
-              _type: "postedBy",
+              _type: 'postedBy',
               _ref: user?.googleId,
             },
           },
@@ -54,28 +56,26 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
   }
 
   return (
-    <div className='m-2'>
+    <div className={`${darkMode ? 'dark' : ''}m-2`}>
       {/* rendering pin */}
       <div
         // setting up hover states
         onMouseEnter={() => setPostHovered(true)}
         onMouseLeave={() => setPostHovered(false)}
         onClick={() => navigate(`/pin-detail/${_id}`)}
-        className='relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'
-      >
+        className='relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out'>
         {/* actual image */}
         <img
           src={urlFor(image).width(250).url()}
           className='rounded-lg w-full'
-          alt={title || "user posts"}
+          alt={title || 'user posts'}
         />
 
         {/* render buttons on image hover */}
         {postHovered && (
           <div
             className='absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-40'
-            style={{ height: "100%" }}
-          >
+            style={{ height: '100%' }}>
             <div className='flex items-center justify-between'>
               <div className='flex gap-2'>
                 {/* download button */}
@@ -84,8 +84,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
                   download
                   // to stop page from redirecting to pin details page when clicked on download button
                   onClick={e => e.stopPropagation()}
-                  className='btn bg-white w-9 h-9'
-                >
+                  className='btn bg-white text-black w-9 h-9'>
                   <MdDownloadForOffline />
                 </a>
               </div>
@@ -94,8 +93,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
               {alreadySaved ? (
                 <button
                   type='button'
-                  className='btn bg-red-500 text-white px-5 py-1'
-                >
+                  className='btn bg-red-500 text-white px-5 py-1'>
                   {save?.length} Saved
                 </button>
               ) : (
@@ -107,8 +105,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
                     onClick={e => {
                       e.stopPropagation()
                       savePin(_id)
-                    }}
-                  >
+                    }}>
                     Save
                   </button>
                 )
@@ -123,13 +120,8 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
                   target='_blank'
                   rel='noopener noreferrer'
                   className=' btn bg-white gap-2 text-black p-2 pl-4'
-                  onClick={e => e.stopPropagation()}
-                >
+                  onClick={e => e.stopPropagation()}>
                   <BsFillArrowUpRightCircleFill />
-                  {/* {destination.length > 20
-                    ? // truncate url if length greater than 20
-                      destination.slice(8, 20) + "..."
-                    : destination.slice(8)} */}
                 </a>
               )}
 
@@ -137,12 +129,11 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
               {postedBy?._id === user?.googleId && (
                 <button
                   type='button'
-                  className='btn bg-white text-dark p-2'
+                  className='btn bg-white text-black p-2'
                   onClick={e => {
                     e.stopPropagation()
                     deletePin(_id)
-                  }}
-                >
+                  }}>
                   <AiTwotoneDelete />
                 </button>
               )}
@@ -153,12 +144,11 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
       {/* render user profile and link to user profile page */}
       <Link
         to={`/user-profile/${postedBy?._id}`}
-        className='flex gap-2 mt-2 items-center'
-      >
+        className='flex gap-2 mt-2 items-center'>
         <img
           className='w-8 h-8 rounded-full object-cover'
           src={postedBy?.image}
-          alt={postedBy?.username || "user profile"}
+          alt={postedBy?.username || 'user profile'}
         />
         <p className='font-semibold capitalize'>{postedBy?.username}</p>
       </Link>
