@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { RiHomeFill } from 'react-icons/ri'
 
-import lightLogo from '../assets/logo-dark.svg'
+import Logo from './Logo'
 import { categories } from '../utils/data' // actual cayegories array
 import { useDarkMode } from '../context'
 
@@ -23,7 +23,7 @@ const Sidebar = ({ user, closeToggle }) => {
             to='/'
             className='flex px-5 gap-2 my-6 pt-1 w-190 items-center'
             onClick={handleCloseSidebar}>
-            <img src={lightLogo} alt='logo' />
+            <Logo />
           </Link>
           {/* Home Link */}
           <div className='flex flex-col gap-5'>

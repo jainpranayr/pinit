@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom'
 import { Routes } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 
-import { Sidebar, UserProfile } from '../components'
-import { Pins } from '../containers'
-import lightLogo from '../assets/logo-dark.svg'
+import { Sidebar, UserProfile, Logo } from '../components'
+import Pins from './Pins'
 import { userQuery } from '../utils/data'
 import { client } from '../client'
 import fetchUserFromLocalStorage from '../utils/fetchUserFromLocalStorage'
@@ -53,7 +52,7 @@ const Home = () => {
                 onClick={() => setToggleSideBar(true)}
               />
               <Link to='/'>
-                <img src={lightLogo} alt='logo' />
+                <Logo />
               </Link>
             </div>
             <Link to={`user-profile/${user?._id}`}>

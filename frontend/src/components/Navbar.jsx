@@ -49,7 +49,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
           <img
             src={user?.image}
             alt={user?.username || 'user profile'}
-            className='w-14 h-12 rounded-lg'
+            className='w-12 h-12 rounded-lg'
           />
         </Link>
       </div>
