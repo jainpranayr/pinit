@@ -1,19 +1,21 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { AiOutlineCloudUpload } from "react-icons/ai"
-import { MdDelete } from "react-icons/md"
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AiOutlineCloudUpload } from 'react-icons/ai'
+import { MdDelete } from 'react-icons/md'
 
-import { Spinner } from "../components"
-import { client } from "../client"
-import { categories } from "../utils/data"
+import { Spinner } from '../components'
+import { client } from '../client'
+import { categories } from '../utils/data'
+import { useDarkMode } from '../context'
+import { Link } from 'react-router-dom'
 
 const CreatePin = ({ user }) => {
   // title of pin
-  const [title, setTitle] = useState("")
+  const [title, setTitle] = useState('')
   // about the pin
-  const [about, setAbout] = useState("")
+  const [about, setAbout] = useState('')
   // destination url of pin
-  const [destination, setDestination] = useState("")
+  const [destination, setDestination] = useState('')
   // page loading state
   const [loading, setLoading] = useState(false)
   // all the fields of form
@@ -26,24 +28,26 @@ const CreatePin = ({ user }) => {
   const [wrongImageType, setWrongImageType] = useState(false)
   // setup navigate
   const navigate = useNavigate()
+  // darkMode state
+  const { darkMode } = useDarkMode()
 
   // uploading image to sanity database
   const uploadImage = e => {
     const { type, name } = e.target.files[0]
     // check for wrong file types
     if (
-      type === "image/png" ||
-      type === "image/svg" ||
-      type === "image/jpeg" ||
-      type === "image/gif" ||
-      type === "image/tiff"
+      type === 'image/png' ||
+      type === 'image/svg' ||
+      type === 'image/jpeg' ||
+      type === 'image/gif' ||
+      type === 'image/tiff'
     ) {
       setWrongImageType(false)
       setLoading(true)
 
       // upload image to sanity
       client.assets
-        .upload("image", e.target.files[0], {
+        .upload('image', e.target.files[0], {
           contentType: type,
           filename: name,
         })
@@ -51,7 +55,7 @@ const CreatePin = ({ user }) => {
           setImageAsset(doc)
           setLoading(false)
         })
-        .catch(err => console.error("Image Upload error", err))
+        .catch(err => console.error('Image Upload error', err))
     } else {
       setWrongImageType(true)
     }
@@ -63,27 +67,27 @@ const CreatePin = ({ user }) => {
     if (title && about && destination && imageAsset?._id && category) {
       // creating document
       const doc = {
-        _type: "pin",
+        _type: 'pin',
         title,
         about,
         destination,
         image: {
-          _type: "image",
+          _type: 'image',
           asset: {
-            _type: "reference",
+            _type: 'reference',
             _ref: imageAsset?._id,
           },
         },
         userId: user?._id,
         postedBy: {
-          _type: "postedBy",
+          _type: 'postedBy',
           _ref: user?._id,
         },
         category,
       }
 
       // adding document to sanity
-      client.create(doc).then(() => navigate("/"))
+      client.create(doc).then(() => navigate('/'))
     } else {
       setFields(true)
       // if fields are not filled showing error for 2s
@@ -94,15 +98,18 @@ const CreatePin = ({ user }) => {
   }
 
   return (
-    <div className='flex justify-center items-center flex-col mt-5 lg:h-4/5'>
+    <div
+      className={`${
+        darkMode ? 'dark' : ''
+      } flex justify-center items-center flex-col mt-5 lg:h-4/5`}>
       {/* check if all fields are filled correctly */}
       {fields && (
         <p className='text-red-500 mb-5 text-xl transition-all duration-150 ease-in'>
           Please fill in all the fields
         </p>
       )}
-      <div className='flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5 w-full'>
-        <div className='bg-secondaryColor p-3 flex flex-0.7 w-full'>
+      <div className='flex lg:flex-row flex-col justify-center items-center dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 lg:p-5 p-3 lg:w-4/5 w-full'>
+        <div className='dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 p-3 flex flex-0.7 w-full'>
           <div className='flex justify-center items-center flex-col border-dotted border-2 border-gray-300 p-3 w-full h-420'>
             {/* if loading show spinner */}
             {loading && <Spinner />}
@@ -133,16 +140,15 @@ const CreatePin = ({ user }) => {
                 {/* render uploaded image */}
                 <img
                   src={imageAsset?.url}
-                  alt={imageAsset?.originalFilename || "pin image"}
+                  alt={imageAsset?.originalFilename || 'pin image'}
                   className='h-full w-full'
                 />
 
                 {/* delete button */}
                 <button
                   type='button'
-                  className='absolute bottom-3 right-2 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
-                  onClick={() => setImageAsset(null)}
-                >
+                  className='absolute bottom-3 right-2 p-3 rounded-full dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out'
+                  onClick={() => setImageAsset(null)}>
                   <MdDelete />
                 </button>
               </div>
@@ -154,14 +160,16 @@ const CreatePin = ({ user }) => {
         <div className='flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full'>
           {/* user profile */}
           {user && (
-            <div className='flex gap-2 my-2 items-center bg-white rounded-lg'>
-              <img
-                src={user?.image}
-                alt={user?.username || "user profile"}
-                className='w-10 h-10 rounded-full'
-              />
-              <p className='font-bold'>{user?.username}</p>
-            </div>
+            <Link to={`/user-profile/${user?._id}`}>
+              <div className='flex gap-2 my-2 items-center dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 rounded-lg'>
+                <img
+                  src={user?.image}
+                  alt={user?.username || 'user profile'}
+                  className='w-10 h-10 rounded-full'
+                />
+                <p className='font-bold'>{user?.username}</p>
+              </div>
+            </Link>
           )}
 
           {/* Pin title */}
@@ -170,7 +178,7 @@ const CreatePin = ({ user }) => {
             value={title}
             onChange={e => setTitle(e.target.value)}
             placeholder='Add Pin title'
-            className='outline-none text-2xl sm:text-3xl font-bold border-b-2 border-gray-200 p-2'
+            className='outline-none text-2xl sm:text-3xl font-bold border-b-2 border-gray-200 p-2 dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50'
           />
 
           {/* pin details */}
@@ -179,7 +187,7 @@ const CreatePin = ({ user }) => {
             value={about}
             onChange={e => setAbout(e.target.value)}
             placeholder='Add Pin details'
-            className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2'
+            className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2 dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50'
           />
 
           {/* destination orl */}
@@ -188,13 +196,13 @@ const CreatePin = ({ user }) => {
             value={destination}
             onChange={e =>
               setDestination(
-                e.target.value.startsWith("https://www.")
+                e.target.value.startsWith('https://www.')
                   ? e.target.value
-                  : "https://www." + e.target.value
+                  : 'https://www.' + e.target.value
               )
             }
             placeholder='Add link related to pin'
-            className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2'
+            className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2 dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50'
           />
 
           {/* categories dropdown  menu */}
@@ -202,8 +210,7 @@ const CreatePin = ({ user }) => {
             <div>
               <select
                 onChange={e => setCategory(e.target.value)}
-                className='outline-none w-full lg:w-5/12 text-base border-gray-200 p-2 rounded-md cursor-pointer'
-              >
+                className='outline-none w-full lg:w-5/12 text-base border-gray-200 p-2 rounded-md cursor-pointer dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50'>
                 <option value='other' className='bg-white'>
                   Select Category
                 </option>
@@ -213,8 +220,7 @@ const CreatePin = ({ user }) => {
                   <option
                     key={category?.name}
                     value={category?.name}
-                    className='text-base border-0 outline-none capitalize bg-white text-black p-1'
-                  >
+                    className='text-base border-0 outline-none capitalize bg-white text-black p-1'>
                     {category?.name}
                   </option>
                 ))}
@@ -226,8 +232,7 @@ const CreatePin = ({ user }) => {
               <button
                 type='submit'
                 onClick={savePin}
-                className='bg-red-500 text-white font-bold p-2 w-full lg:w-28 rounded-md outline-none '
-              >
+                className='bg-red-500 text-white font-bold p-2 w-full lg:w-28 rounded-md outline-none '>
                 Save Pin
               </button>
             </div>
