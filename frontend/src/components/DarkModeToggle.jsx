@@ -2,7 +2,6 @@ import { useDarkMode } from '../context'
 
 const DarkModeToggle = () => {
   const { darkMode, handleDarkMode } = useDarkMode()
-  console.log(darkMode)
 
   return (
     <div
@@ -11,10 +10,10 @@ const DarkModeToggle = () => {
       } rounded-lg flex justify-center items-center`}>
       <button
         onClick={handleDarkMode}
-        className='rounded-lg flex justify-center items-center outline-none w-12 h-12 border-2 dark:border-slate-200 border-slate-800 text-slate-800'>
+        className='rounded-lg flex justify-center items-center w-12 h-12  dark:bg-white dark:text-slate-900 bg-slate-900 text-gray-50 border-none outline-none focus-within:shadow-sm'>
         {darkMode ? (
           <svg
-            className='w-6 h-6 md:w-8 md:h-8'
+            className='w-5 h-5'
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
@@ -28,7 +27,7 @@ const DarkModeToggle = () => {
           </svg>
         ) : (
           <svg
-            className='w-6 h-6 md:w-8 md:h-8'
+            className='w-5 h-5'
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
