@@ -11,6 +11,7 @@ import { Spinner } from '../components'
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data'
 import MasonryLayout from './MasonryLayout'
 import NoPinsFound from './NoPinsFound'
+import { useDarkMode } from '../context'
 
 const PinDetails = ({ user }) => {
   // pin state
@@ -86,7 +87,7 @@ const PinDetails = ({ user }) => {
 
   return (
     <>
-      <div className='flex xl:flex-row flex-col m-auto bg-white max-w[1500px] rounded-[32px]'>
+      <div className='flex xl:flex-row flex-col m-auto dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 max-w[1500px] rounded-[32px]'>
         <div className='flex justify-center items-center md:items-start flex-initial'>
           {/* pin image */}
           <img
@@ -95,15 +96,15 @@ const PinDetails = ({ user }) => {
             className='rounded-t-3xl rounded-b-lg max-h-[50vh]'
           />
         </div>
-        <div className='w-full p-5 flex-1 cl:min-w-620'>
-          <div className='flex items-center'>
+        <div className='w-full p-5 flex-1 xl:min-w-620'>
+          <div className='flex gap-2 items-center'>
             {/* download button */}
             <a
               href={`${pinDetails?.image?.asset?.url}?dl=`}
               download
               // to stop page from redirecting to pin details page when clicked on download button
               onClick={e => e.stopPropagation()}
-              className='btn bg-white w-9 h-9'>
+              className='btn bg-white text-black w-9 h-9'>
               <MdDownloadForOffline className='w-6 h-6' />
             </a>
 
@@ -113,7 +114,7 @@ const PinDetails = ({ user }) => {
               target='_blank'
               rel='noopener noreferrer'
               onClick={e => e.stopPropagation()}
-              className='btn bg-white w-9 h-9'>
+              className='btn bg-white text-black w-9 h-9'>
               <BsFillArrowUpRightCircleFill className='w-5 h-5' />
             </a>
 
@@ -121,12 +122,12 @@ const PinDetails = ({ user }) => {
             {pinDetails?.postedBy?._id === user?._id && (
               <button
                 type='button'
-                className='btn bg-white text-dark p-2'
+                className='btn bg-white text-black p-2'
                 onClick={e => {
                   e.stopPropagation()
                   deletePin(pinId)
                 }}>
-                <AiTwotoneDelete className='h-6 w-6' />
+                <AiTwotoneDelete className='h-5 w-5' />
               </button>
             )}
           </div>
@@ -142,7 +143,7 @@ const PinDetails = ({ user }) => {
           {/*  user profile and link to user profile page */}
           <Link
             to={`/user-profile/${pinDetails?.postedBy?._id}`}
-            className='flex gap-2 mt-5 items-center bg-white rounded-lg'>
+            className='flex gap-2 mt-5 items-center dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 rounded-lg'>
             <img
               className='w-8 h-8 rounded-full object-cover'
               src={pinDetails?.postedBy?.image}
@@ -158,7 +159,7 @@ const PinDetails = ({ user }) => {
           <div className='max-h-370 overflow-y-auto'>
             {pinDetails?.comments?.map((comment, idx) => (
               <div
-                className='flex gap-2 mt-5 items-center bg-white rounded-lg'
+                className='flex gap-2 mt-5 items-center dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 rounded-lg'
                 key={idx}>
                 {/* user dp */}
                 <Link to={`/user-profile/${comment?.postedBy?._id}`}>
@@ -191,7 +192,7 @@ const PinDetails = ({ user }) => {
             {/* comment input */}
             <input
               type='text'
-              className='flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300'
+              className='flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300 dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50'
               placeholder='add a comment'
               value={comment}
               onChange={e => setComment(e.target.value)}
