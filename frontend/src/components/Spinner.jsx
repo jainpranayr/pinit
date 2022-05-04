@@ -1,12 +1,16 @@
-import Loader from "react-loader-spinner"
+import Loader from 'react-loader-spinner'
+
+import { useDarkMode } from '../context'
 
 const Spinner = ({ message }) => {
+  const { darkMode } = useDarkMode()
+
   return (
     <div className='flex flex-col justify-center  items-center w-full h-full'>
       {/* Spinner Config */}
       <Loader
         type='Circles'
-        color='#000'
+        color={darkMode ? '#000' : '#fff'}
         height={50}
         width={200}
         className='m-5'

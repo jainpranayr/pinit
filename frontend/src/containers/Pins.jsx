@@ -1,15 +1,18 @@
-import { useState } from "react"
-import { Route } from "react-router-dom"
-import { Routes } from "react-router-dom"
-import { Navbar, Search, Feed, PinDetails, CreatePin } from "../components"
+import { useState } from 'react'
+import { Route } from 'react-router-dom'
+import { Routes } from 'react-router-dom'
+import { Navbar, Search, Feed, PinDetails, CreatePin } from '../components'
+import { useDarkMode } from '../context'
 
 const Pins = ({ user }) => {
   // search query
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState('')
+  // darkMode state
+  const { darkMode } = useDarkMode()
 
   return (
-    <div className='px-2 md:px-5'>
-      <div className='bg-gray-50'>
+    <div className={`${darkMode ? 'dark' : ''} px-2 md:px-5`}>
+      <div className='dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50'>
         <Navbar
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}

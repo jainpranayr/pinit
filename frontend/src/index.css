@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,11 +9,11 @@
   }
 
   .isNotActiveStyle {
-    @apply flex items-center px-5 gap-3 text-gray-500 hover:text-black transition-all duration-200 ease-in-out capitalize;
+    @apply flex items-center px-5 gap-3 dark:text-gray-500 dark:hover:text-black text-neutral-400 hover:text-white transition-all duration-200 ease-in-out capitalize;
   }
 
   .isActiveStyle {
-    @apply flex items-center px-5 gap-3 font-extrabold border-r-2 border-black  transition-all duration-200 ease-in-out capitalize;
+    @apply flex items-center px-5 gap-3 font-extrabold border-r-2 dark:border-black dark:text-slate-900 text-white border-white transition-all duration-200 ease-in-out capitalize;
   }
 
   .activeBtnStyles {
@@ -21,19 +21,19 @@
   }
 
   .notActiveBtnStyles {
-    @apply bg-[#fafafa] mr-4 text-black font-bold p-2 rounded-full w-20 outline-none;
+    @apply bg-white mr-4 text-black font-bold p-2 rounded-full w-20 outline-none;
   }
 }
 
 body {
   margin: 0;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
