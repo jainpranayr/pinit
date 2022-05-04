@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-import { Spinner } from "../components"
+import { Spinner } from '../components'
 import {
   userCreatedPinsQuery,
   userQuery,
   userSavedPinsQuery,
-} from "../utils/data"
-import { client } from "../client"
-import { GoogleLogout } from "react-google-login"
-import { AiOutlineLogout } from "react-icons/ai"
-import MasonryLayout from "./MasonryLayout"
+} from '../utils/data'
+import { client } from '../client'
+import { GoogleLogout } from 'react-google-login'
+import { AiOutlineLogout } from 'react-icons/ai'
+import MasonryLayout from './MasonryLayout'
+import DarkModeToggle from './DarkModeToggle'
 
-const coverImage = "https://source.unsplash.com/1600x900/?nature,technology"
+const coverImage = 'https://source.unsplash.com/1600x900/?nature,technology'
 
 const UserProfile = () => {
   // user state
@@ -21,9 +22,9 @@ const UserProfile = () => {
   // user saved or created pins
   const [pins, setPins] = useState(null)
   // created or saved tab text state
-  const [text, setText] = useState("Created")
+  const [text, setText] = useState('Created')
   // created or saved active tab state
-  const [activeBtn, setActiveBtn] = useState("created")
+  const [activeBtn, setActiveBtn] = useState('created')
 
   // setup navigation
   const navigate = useNavigate()
@@ -39,7 +40,7 @@ const UserProfile = () => {
 
   // fetch saved and created pins
   useEffect(() => {
-    if (text === "Created") {
+    if (text === 'Created') {
       // fetch created pins
       const created = userCreatedPinsQuery(userId)
       client.fetch(created).then(data => setPins(data))
@@ -55,7 +56,7 @@ const UserProfile = () => {
     // clrar user data from localstorage
     localStorage.clear()
     // redirect to login page
-    navigate("/login")
+    navigate('/login')
   }
 
   // if user does'nt exist show spinner
@@ -78,7 +79,7 @@ const UserProfile = () => {
             {/* User image */}
             <img
               src={user?.image}
-              alt={user?.username || "user dp"}
+              alt={user?.username || 'user dp'}
               className='rounded-full w-20 h-20 -mt-10 shadow-xl object-cover border-2'
             />
 
@@ -86,18 +87,18 @@ const UserProfile = () => {
             <h1 className='font-bold text-3xl text-center'>{user?.username}</h1>
 
             {/* logout button */}
-            <div className='absolute top-0 z-1 right-0 p-2'>
+            <div className='absolute top-0 z-1 right-0 p-2 flex gap-2'>
+              <DarkModeToggle />
               {userId === user._id && (
                 <GoogleLogout
                   clientId={process.env.REACT_APP_GOOGLE_ID}
                   render={renderProps => (
                     <button
                       type='button'
-                      className='bg-white p-2 rounded-full cursor-pointer outline-none shadow-md'
+                      className='rounded-lg flex justify-center items-center w-12 h-12 dark:bg-white dark:text-slate-900 bg-slate-900 text-gray-50 border-none outline-none focus-within:shadow-sm'
                       onClick={renderProps.onClick}
-                      disabled={renderProps.disabled}
-                    >
-                      <AiOutlineLogout color='#000' fontSize={21} />
+                      disabled={renderProps.disabled}>
+                      <AiOutlineLogout />
                     </button>
                   )}
                   onLogoutSuccess={logout}
@@ -108,20 +109,19 @@ const UserProfile = () => {
           </div>
 
           {/* Created and Saved buttons */}
-          <div className='text-center mb-7 mt-2'>
+          <div className='text-center mb-7 mt-2 flex justify-center items-center gap-2'>
             {/* Created button */}
             <button
               type='button'
               onClick={e => {
                 setText(e.target.textContent)
-                setActiveBtn("created")
+                setActiveBtn('created')
               }}
               className={`${
-                activeBtn === "created"
-                  ? "activeBtnStyles"
-                  : "notActiveBtnStyles"
-              }`}
-            >
+                activeBtn === 'created'
+                  ? 'activeBtnStyles'
+                  : 'notActiveBtnStyles'
+              }`}>
               Created
             </button>
 
@@ -130,12 +130,11 @@ const UserProfile = () => {
               type='button'
               onClick={e => {
                 setText(e.target.textContent)
-                setActiveBtn("saved")
+                setActiveBtn('saved')
               }}
               className={`${
-                activeBtn === "saved" ? "activeBtnStyles" : "notActiveBtnStyles"
-              }`}
-            >
+                activeBtn === 'saved' ? 'activeBtnStyles' : 'notActiveBtnStyles'
+              }`}>
               Saved
             </button>
           </div>

@@ -21,7 +21,7 @@
   }
 
   .notActiveBtnStyles {
-    @apply bg-[#fafafa] mr-4 text-black font-bold p-2 rounded-full w-20 outline-none;
+    @apply bg-white mr-4 text-black font-bold p-2 rounded-full w-20 outline-none;
   }
 }
 
