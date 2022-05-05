@@ -56,7 +56,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
   }
 
   return (
-    <div className={`${darkMode ? 'dark' : ''}m-2`}>
+    <div className={`${darkMode ? 'dark' : ''} m-2`}>
       {/* rendering pin */}
       <div
         // setting up hover states
@@ -144,7 +144,7 @@ const Pin = ({ pin: { title, postedBy, image, _id, destination, save } }) => {
       {/* render user profile and link to user profile page */}
       <Link
         to={`/user-profile/${postedBy?._id}`}
-        className='flex gap-2 mt-2 items-center'>
+        className='flex gap-2 m-2 items-center'>
         <img
           className='w-8 h-8 rounded-full object-cover'
           src={postedBy?.image}
