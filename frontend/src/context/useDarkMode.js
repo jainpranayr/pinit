@@ -6,12 +6,12 @@ export const DarkModeContextProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(true)
 
   const handleDarkMode = () => {
-    localStorage.setItem('darkMode', !darkMode)
+    localStorage.setItem('pinit- darkMode', !darkMode)
     setDarkMode(!darkMode)
   }
 
   useEffect(() => {
-    const darkMode = localStorage.getItem('darkMode') === 'true'
+    const darkMode = localStorage.getItem('pinit- darkMode') === 'true'
     setDarkMode(darkMode)
   }, [])
 

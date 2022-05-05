@@ -11,7 +11,6 @@ import { Spinner } from '../components'
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data'
 import MasonryLayout from './MasonryLayout'
 import NoPinsFound from './NoPinsFound'
-import { useDarkMode } from '../context'
 
 const PinDetails = ({ user }) => {
   // pin state
@@ -192,7 +191,7 @@ const PinDetails = ({ user }) => {
             {/* comment input */}
             <input
               type='text'
-              className='flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300 dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50'
+              className='border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300 dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 w-full max-w-sm'
               placeholder='add a comment'
               value={comment}
               onChange={e => setComment(e.target.value)}
