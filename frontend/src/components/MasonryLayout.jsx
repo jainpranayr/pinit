@@ -1,5 +1,5 @@
-import Masonry from "react-masonry-css"
-import Pin from "./Pin"
+import Masonry from 'react-masonry-css'
+import Pin from './Pin'
 
 // responsive breakpoints
 const breakpointColumnsObj = {
@@ -14,9 +14,8 @@ const breakpointColumnsObj = {
 const MasonryLayout = ({ pins }) => (
   // masonry layout config
   <Masonry
-    className='flex animate-slide-fwd'
-    breakpointCols={breakpointColumnsObj}
-  >
+    className='flex flex-wrap justify-center animate-slide-fwd'
+    breakpointCols={breakpointColumnsObj}>
     {pins?.map(pin => (
       <Pin key={pin._id} pin={pin} className='w-max' />
     ))}
