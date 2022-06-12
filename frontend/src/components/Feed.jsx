@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
-import { Spinner, NoPinsFound } from "../components"
-import { client } from "../client"
-import { feedQuery, searchQuery } from "../utils/data"
-import MasonryLayout from "./MasonryLayout"
+import { Spinner, NoPinsFound } from '../components'
+import { client } from '../client'
+import { feedQuery, searchQuery } from '../utils/data'
+import MasonryLayout from './MasonryLayout'
 
 const Feed = () => {
   // loading state
@@ -40,7 +40,7 @@ const Feed = () => {
   if (!pins?.length) return <NoPinsFound />
 
   return (
-    <div>
+    <div className='mt-4 md:mt-8'>
       {/* display pins */}
       {pins?.length >= 1 && <MasonryLayout pins={pins} />}
     </div>

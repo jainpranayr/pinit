@@ -27,7 +27,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
           placeholder='Search pins...'
           value={searchTerm}
           onFocus={() => navigate('/search')}
-          className='w-full p-2  dark:bg-white dark:text-slate-900 bg-slate-900 text-gray-50 outline-none'
+          className='w-full p-2 dark:bg-white dark:text-slate-900 bg-slate-900 text-gray-50 outline-none'
         />
       </div>
 

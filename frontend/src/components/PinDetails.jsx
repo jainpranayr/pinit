@@ -86,7 +86,7 @@ const PinDetails = ({ user }) => {
 
   return (
     <>
-      <div className='flex xl:flex-row flex-col m-auto dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 max-w[1500px] rounded-[32px]'>
+      <div className='flex xl:flex-row flex-col mx-auto dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 max-w-4xl rounded-[32px] mt-4  md:mt-8'>
         <div className='flex justify-center items-center md:items-start flex-initial'>
           {/* pin image */}
           <img
@@ -95,7 +95,7 @@ const PinDetails = ({ user }) => {
             className='rounded-t-3xl rounded-b-lg max-h-[50vh]'
           />
         </div>
-        <div className='w-full p-5 flex-1 xl:min-w-620'>
+        <div className='w-full p-5 flex-1 xl:min-w-[450px]'>
           <div className='flex gap-2 items-center'>
             {/* download button */}
             <a
@@ -165,7 +165,7 @@ const PinDetails = ({ user }) => {
                   <img
                     src={comment?.postedBy?.image}
                     alt={comment?.postedBy?.username}
-                    className='w-10 h-1- rounded-full cursor-pointer'
+                    className='w-8 h-8 rounded-full cursor-pointer'
                   />
                 </Link>
 
@@ -188,10 +188,11 @@ const PinDetails = ({ user }) => {
                 alt={user?.username || 'user profile'}
               />
             </Link>
+            <p className='font-base'>{user?.username}</p>
             {/* comment input */}
             <input
               type='text'
-              className='border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300 dark:bg-gray-100 dark:text-slate-900 bg-slate-800 text-gray-50 w-full max-w-sm'
+              className='outline-none p-2 rounded-md w-full max-w-sm dark:bg-white dark:text-slate-900 bg-slate-900 text-gray-50'
               placeholder='add a comment'
               value={comment}
               onChange={e => setComment(e.target.value)}
@@ -199,7 +200,7 @@ const PinDetails = ({ user }) => {
             {/* submit button */}
             <button
               type='submit'
-              className='bg-red-500 border-2 border-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none'
+              className='bg-red-500 border-2 border-red-500 text-white rounded-md px-6 py-2 font-semibold text-base outline-none'
               onClick={addComment}>
               {addingComment ? 'Posting...' : 'Done'}
             </button>
@@ -209,12 +210,12 @@ const PinDetails = ({ user }) => {
 
       {/* related pins */}
       {pin?.length > 0 ? (
-        <>
+        <div className='mx-auto'>
           <h2 className='text-center font-bold text-2xl mt-8 mb-4'>
             Related Pins
           </h2>
           <MasonryLayout pins={pin} />
-        </>
+        </div>
       ) : (
         <NoPinsFound />
       )}
