@@ -7,12 +7,12 @@ import './index.css'
 import App from './App'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <DarkModeContextProvider>
-      <Router>
-        <App />
-      </Router>
-    </DarkModeContextProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<DarkModeContextProvider>
+			<Router>
+				<App />
+			</Router>
+		</DarkModeContextProvider>
+	</React.StrictMode>,
+	document.getElementById('root')
 )
